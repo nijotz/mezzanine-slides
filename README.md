@@ -9,7 +9,7 @@ beautiful banners at the tops of pages.
  1. Run `pip install mezzanine-slides`
  2. In `settings.py` add `mezzanine_slides` to your `INSTALLED_APPS` above mezzanine apps.
  3. Run createdb or syncdb, if running syncdb run migrate if you are using South.
- 4. If you haven't modified your `base.html` or `pages/page.html` templates then you can just `manage.py collectemplates mezzanine_slides` and use the ones I provide. If you've already modified these templates see the Templates section for continued instruction.
+ 4. If you haven't modified your `base.html` or `pages/page.html` templates then you can just `manage.py collecttemplates mezzanine_slides` and use the ones I provide. If you've already modified these templates see the Templates section for continued instruction.
 
 
 ## Templates
