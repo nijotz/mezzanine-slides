@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
 <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.responsive.css">
 <link rel="stylesheet" href="{{ STATIC_URL }}css/mezzanine.css">
-<link rel="stylesheet" href="{{ STATIC_URL }}css/responsiveslides.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/slidesjs.css">
 {% if LANGUAGE_BIDI %}
 <link rel="stylesheet" href="{{ STATIC_URL }}css/rtl.css">
 {% endif %}
@@ -32,12 +32,29 @@
 {% compress js %}
 <script src="{{ STATIC_URL }}mezzanine/js/{{ settings.JQUERY_FILENAME }}"></script>
 <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
-<script src="{{ STATIC_URL }}js/responsiveslides.min.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.slides.min.js"></script>
 <script>
 $(function() {
     $('.middleinput:text, textarea').addClass('xlarge');
     $('.control-group label').addClass('control-label');
-    $('.rslides').responsiveSlides();
+    $('.slides').slidesjs({
+      width: 940,
+      height: 310,
+      play: {
+        active: true,
+        effect: "slide",
+        interval: 5000,
+        auto: true,
+        swap: true,
+        pauseOnHover: true,
+        restartDelay: 2500
+      },
+      effect: {
+        slide: {
+          speed: 1000,
+        }
+      }
+    });
 });
 </script>
 {% block extra_js %}{% endblock %}
