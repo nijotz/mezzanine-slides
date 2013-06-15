@@ -18,12 +18,10 @@ Add this to your `pages/page.html` anywhere as long as it's not inside another
 block:
 
     {% block slides %}{% if page.slide_set.all %}
-    <div class="row">
-    <div class="span12">
-        <ul class="rslides">{% for image in page.slide_set.all %}
-            <li><img src="{{ MEDIA_URL }}{% thumbnail image.file 940 300 %}" alt="{{ image.description }}"/></li>
-        {% endfor %}</ul>
-    </div>
+    <div class="slides">
+      {% for image in page.slide_set.all %}
+      <img src="{{ MEDIA_URL }}{% thumbnail image.file 940 300 %}" alt="{{ image.description }}"/>
+      {% endfor %}
     </div>
     {% endif %}{% endblock %}
 
@@ -32,40 +30,53 @@ usually between your main content and the navigation:
 
     {% block slides %}{% endblock %}
 
-Notice that I include the `row` and `span12` classes on the `pages/page.html`
-template so that if you don't have any slides then nothing is added to the page.
-
 Now you'll need to include the CSS and JS in your compress areas of your
 `base.html` template:
 
     {% compress css %}
     ...
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/responsiveslides.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/slidesjs.css">
     {% endcompress %}
 
     
     {% compress js %}
     ...
-    <script src="{{ STATIC_URL }}js/responsiveslides.min.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.slides.min.js"></script>
     {% endcompress %}
 
 Lastly you'll need to invoke the slides JavaScript by putting
-`$('.rslides').responsiveSlides();` on in your JavaScript somewhere. In the
-`base.html` template I put this in the header around line 34 where I found some
-other JavaScript functions to just make it easy and try to conform to the
-original Mezzanine as much as possible, here is an excerpt of the area:
+`$('.slides').slidesjs();` on in your JavaScript somewhere. In the `base.html`
+template I put this in the header around line 34 where I found some other
+JavaScript functions to just make it easy and try to conform to the original
+Mezzanine as much as possible, here is an excerpt of the area:
 
     <script>
     $(function() {
-        ...
-        $('.rslides').responsiveSlides();
+      $('.slides').slidesjs({
+        width: 940,
+        height: 310,
+        play: {
+          active: true,
+          effect: "slide",
+          interval: 5000,
+          auto: true,
+          swap: true,
+          pauseOnHover: true,
+          restartDelay: 2500
+        },
+        effect: {
+          slide: {
+            speed: 1000,
+          }
+        }
+      })
     });
     </script>
 
 
 ## Credits
 
-Thanks to [Viljami Salminen][0] for his great [ResponsiveSlides.js][1] plugin.
+Thanks to [Nathan Searles][0] for his great [SlidesJS][1] plugin.
 
 
 ## License (Simplified BSD)
@@ -95,5 +106,5 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-[0]: http://viljamis.com/
-[1]: http://responsive-slides.viljamis.com/
+[0]: http://nathansearles.com/
+[1]: http://www.slidesjs.com/
